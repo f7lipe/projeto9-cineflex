@@ -1,0 +1,32 @@
+/* estilos gerais da aplicação */
+
+* {
+    box-sizing: border-box;
+    --background-color: #262f2d;
+    --logo-color: #ff8239;
+    --white: #ffffff;
+  }
+  
+  body {
+    width: 100vw;
+    height: calc(100vh);
+    background-color: var(--background-color);
+    color: var(--white);
+    font-family: 'Recursive', sans-serif;
+    /* font-family: 'Righteous', cursive; */
+  }
+
+  header{
+    height: 67px;
+    background-color: rgb(3, 3, 3);
+    color: var(--logo-color);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+}

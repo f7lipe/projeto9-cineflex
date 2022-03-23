@@ -1,0 +1,18 @@
+
+main{
+    margin-top: 100px;
+    margin-bottom: 117px;
+}
+
+input{
+    margin-bottom: 30px;
+    width: 80vw;
+    height: 51px;
+    border-radius: 5px;
+}
+
+.Submit{
+    background: #E8833A;
+    color: white;
+    border: none;
+}

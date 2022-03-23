@@ -1,0 +1,15 @@
+.Schedule-button{
+    
+    background: #E8833A;
+    width: 83px;
+    height: 43px;
+    border: none;
+    margin: 4px;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 60px;
+}
+
+.Schedule-h2{
+    margin-bottom: 10px;
+}

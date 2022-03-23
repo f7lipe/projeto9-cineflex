@@ -1,0 +1,17 @@
+.Movies{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.Movies-h1{
+    font-size: x-large;
+}
+
+main{
+    margin-top: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

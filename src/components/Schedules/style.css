@@ -1,0 +1,44 @@
+.Schedules{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100vw;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.Schedules-h1{
+    font-size: x-large;
+}
+
+main{
+    margin-top: 250px;
+    margin-bottom: 125px;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 117px;
+    background: rgb(25, 25, 26);   
+}
+
+footer .Schedule-movie-thumbnail{
+    width: 50px;
+    height: 76px;
+    background-color: brown;
+    margin: 20px;
+}
+
+footer .Schedule-movie-h3{
+    font-size:larger;
+    color: white;    
+}
+
+.Schedule-movie-info{
+    display:  flex;
+    align-items: center;
+    justify-content: flex-start;
+}

@@ -1,0 +1,15 @@
+.Movie{
+    width: 129px;
+    height: 193px;
+    background: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35px 35px 0 ;
+    cursor: pointer;
+}
+
+.Movie :hover{
+    opacity: 0.9;
+    color: aliceblue;
+}
