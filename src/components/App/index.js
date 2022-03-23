@@ -1,3 +1,6 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+
 import "./style.css"
 
 import Movies from "../Movies"
@@ -13,10 +16,15 @@ export default function App() {
                 <h1>CINEFLEX</h1>
             </header>
 
-            {/*<Movies/>*/}
-            {/*<Schedules/>*/}
-            {/*<Session/> */}
-            {/*<Sucess/>*/}
+            <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Movies/>} />
+                <Route path="/schedules" element={<Schedules/> } />
+                <Route path="/session"element={<Session/>} />
+                <Route path="/sucess" element={<Sucess/>} />
+            </Routes>
+            </BrowserRouter>
+
         </>
     )
 

@@ -6,7 +6,7 @@ export default function Session() {
     return (
         <>
             <main>
-                <h1 className="Movies-h1">
+                <h1 className="Seats-h1">
                     Selecione o(s) assento(s)
                 </h1>
 
@@ -22,7 +22,7 @@ export default function Session() {
                         <input type="number" name="cpf" placeholder="Digite seu CPF..."/>
                     </label>
                     <div>
-                    <input className="Submit" type="submit" value="Reservar assentos" />
+                    <input className="" type="submit" value="Reservar assentos" />
                     </div>
                 </form>
             </main>

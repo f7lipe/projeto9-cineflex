@@ -4,7 +4,7 @@ export default function Sucess() {
     return (
 
         <main>
-            <h1 className="Movies-h1">
+            <h1 className="Sucess-h1">
                 Pedido feito com sucesso!
             </h1>
 

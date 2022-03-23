@@ -4,6 +4,11 @@ main{
     margin-bottom: 117px;
 }
 
+.Seats-h1{
+    color: white;
+    font-size: x-large;
+}
+
 input{
     margin-bottom: 30px;
     width: 80vw;

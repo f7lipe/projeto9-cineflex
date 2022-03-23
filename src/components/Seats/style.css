@@ -1,8 +1,8 @@
 .Seats{
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    display: flex;
-    align-items: center;
+   
     justify-content: center;
     margin-top: 30px;
 }
@@ -24,6 +24,7 @@
     margin-top: 20px;
     margin-bottom: 50px;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
 }
 
