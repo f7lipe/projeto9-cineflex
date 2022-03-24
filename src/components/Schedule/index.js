@@ -1,8 +1,8 @@
 import "./style.css"
 
 export default function Schedule(props){
-    const {weekday, date} = props
-    const [showtimes] = props
+    const {weekday, date, showtimes} = props
+   
     return(
         <>
         <h2 className="Schedule-h2">{`${weekday} – ${date}`}</h2>

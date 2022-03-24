@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import axios from 'axios';
+import {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import "./style.css"
 
@@ -8,7 +8,7 @@ import Schedule from "../Schedule"
 
 export default function Schedules() {
     const { id } = useParams()
-    const [schedule, setSchedule] = useState([])
+    const [schedule, setSchedule] = useState({})
 
 
     useEffect(() => {
@@ -21,8 +21,8 @@ export default function Schedules() {
 
     }, [])
 
-    const { title, posterURL, overview  } = schedule
-    const [days] = schedule
+    const { title, posterURL, overview, days  } = schedule
+  
     return (
         <>
             <main>
@@ -32,9 +32,10 @@ export default function Schedules() {
 
                 <section className="Schedules">
                 {
-                        days.map((day, index) => {
-                            const {weekday, date} = day
-                            const [showtimes] = day
+                   
+                       days && days.map((day, index) => {
+                            const {weekday, date, showtimes} = day
+                            
                             return <Schedule key={id+index} weekday={weekday} date={date} showtimes={showtimes}/>
                         })
                     }
