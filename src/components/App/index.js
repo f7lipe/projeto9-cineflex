@@ -15,8 +15,8 @@ export default function App() {
             <header>
                 <h1>CINEFLEX</h1>
             </header>
-
             <BrowserRouter>
+
             <Routes>
                 <Route path="/" element={<Movies/>} />
                 <Route path="/schedules" element={<Schedules/> } />

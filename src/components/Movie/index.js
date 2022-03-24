@@ -1,7 +1,9 @@
 import "./style.css"
 
-export default function Movie(){
+export default function Movie(props){
+    const {posterURL, overview} = props
     return(
-        <h1 className="Movie">Teste</h1>
+        <img className="Movie" src={posterURL} key={posterURL} alt={overview}/>
+        
     )
 }
