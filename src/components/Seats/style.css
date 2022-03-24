@@ -26,6 +26,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    border-radius: 3px;
 }
 
 .Seat-description{
@@ -33,7 +34,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 40px;
 }
 
 .Seat-description p{
@@ -46,4 +46,6 @@
 
 .unavailable{
     background: #ff4646;
+    cursor: none;
+    user-select: none;
 }

@@ -1,35 +1,16 @@
 import "./style.css"
 
-export default function Seats() {
+export default function Seats(props) {
     return (
         <>
             <section className="Seats">
-                <div className="Seat">1</div>
-                <div className="Seat selected">1</div>
-                <div className="Seat selected">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat unavailable">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat ">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
-                <div className="Seat">1</div>
+                {
+                    props.seats.map(seat=>{
+                        const {name, id, isAvailable} = seat
+                        const status = isAvailable ? '' : 'unavailable'
+                        return <div id={id} className={`Seat ${status}`}>{name}</div>
+                    })
+                }
             </section>
 
             <section className="Seat-descriptions">

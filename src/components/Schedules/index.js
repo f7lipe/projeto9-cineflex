@@ -8,7 +8,7 @@ import Schedule from "../Schedule"
 
 export default function Schedules() {
     const { id } = useParams()
-    const [schedule, setSchedule] = useState({})
+    const [schedule, setSchedule] = useState({days:[]})
 
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export default function Schedules() {
                 <section className="Schedules">
                 {
                    
-                       days && days.map((day, index) => {
+                        days.map((day, index) => {
                             const {weekday, date, showtimes} = day
                             
                             return <Schedule key={id+index} weekday={weekday} date={date} showtimes={showtimes}/>

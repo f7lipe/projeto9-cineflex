@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 import "./style.css"
 
 export default function Schedule(props){
@@ -8,9 +11,13 @@ export default function Schedule(props){
         <h2 className="Schedule-h2">{`${weekday} – ${date}`}</h2>
         <section className="Schedule-buttons">
           {
-              showtimes.map((showtime, index)=>{
-                  const {name} = showtime
-                  return   <button key={index} className="Schedule-button"> {name}</button>
+              showtimes.map((showtime)=>{
+                  const {name, id} = showtime
+                  return (  
+                  <Link to={`/session/${id}`}>
+                  <button key={id} className="Schedule-button"> {name}</button>
+                  </Link>
+                  ) 
               })
           }
         </section>

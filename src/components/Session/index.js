@@ -1,8 +1,28 @@
+import {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import "./style.css"
 
 import Seats from "../Seats"
 
 export default function Session() {
+    const {session_id} = useParams()
+
+    const [session, setSession] = useState({seats:[], name:"", day:"", movie:""})
+
+
+    useEffect(() => {
+        const SESSIONS_API = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${session_id}/seats`
+        const promise = axios.get(SESSIONS_API)
+        promise.then(response => {
+            const { data } = response
+            setSession(data)
+        })
+
+    }, [])
+
+    const { name, day, movie, seats  } = session
     return (
         <>
             <main>
@@ -10,7 +30,7 @@ export default function Session() {
                     Selecione o(s) assento(s)
                 </h1>
 
-                <Seats />
+                <Seats seats={seats}/>
 
                 <form>
                     <label>
@@ -29,10 +49,10 @@ export default function Session() {
 
             <footer>
                 <div className="Schedule-movie-info">
-                    <div className="Schedule-movie-thumbnail"></div>
+                    <img className="Schedule-movie-thumbnail" src={movie.posterURL} alt={movie.overview}/>
                     <div>
-                        <h3 className="Schedule-movie-h3">Enola Gay</h3>
-                        <h4>Quinta-feira - 15:00</h4>
+                        <h3 className="Schedule-movie-h3">{movie.title}</h3>
+                        <h4>{day.weekday} - {name}</h4>
                     </div>
                 </div>
             </footer>
