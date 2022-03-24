@@ -19,7 +19,7 @@ export default function App() {
 
             <Routes>
                 <Route path="/" element={<Movies/>} />
-                <Route path="/schedules" element={<Schedules/> } />
+                <Route path="/schedules/:id" element={<Schedules/> } />
                 <Route path="/session"element={<Session/>} />
                 <Route path="/sucess" element={<Sucess/>} />
             </Routes>

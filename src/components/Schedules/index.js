@@ -1,8 +1,28 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from 'axios';
+
 import "./style.css"
 
 import Schedule from "../Schedule"
 
-export default function Schedules(){
+export default function Schedules() {
+    const { id } = useParams()
+    const [schedule, setSchedule] = useState([])
+
+
+    useEffect(() => {
+        const SCHEDULES_API = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${id}/showtimes`
+        const promise = axios.get(SCHEDULES_API)
+        promise.then(response => {
+            const { data } = response
+            setSchedule(data)
+        })
+
+    }, [])
+
+    const { title, posterURL, overview  } = schedule
+    const [days] = schedule
     return (
         <>
             <main>
@@ -11,16 +31,20 @@ export default function Schedules(){
                 </h1>
 
                 <section className="Schedules">
-                    <Schedule/>
-                    <Schedule/>
-                    <Schedule/>
+                {
+                        days.map((day, index) => {
+                            const {weekday, date} = day
+                            const [showtimes] = day
+                            return <Schedule key={id+index} weekday={weekday} date={date} showtimes={showtimes}/>
+                        })
+                    }
                 </section>
             </main>
 
             <footer>
                 <div className="Schedule-movie-info">
-                <div className="Schedule-movie-thumbnail"></div>
-                <h3 className="Schedule-movie-h3">Enola Gay</h3>
+                    <img className="Schedule-movie-thumbnail" alt={overview} key={id} src={posterURL} />
+                    <h3 className="Schedule-movie-h3">{title}</h3>
                 </div>
             </footer>
         </>

@@ -1,13 +1,18 @@
 import "./style.css"
 
-export default function Schedule(){
+export default function Schedule(props){
+    const {weekday, date} = props
+    const [showtimes] = props
     return(
         <>
-        <h2 className="Schedule-h2">Quarta-feira - 24/06/2021</h2>
+        <h2 className="Schedule-h2">{`${weekday} – ${date}`}</h2>
         <section className="Schedule-buttons">
-            <button className="Schedule-button"> 15:00</button>
-            <button className="Schedule-button"> 15:00</button>
-            <button className="Schedule-button">15:00</button>
+          {
+              showtimes.map((showtime, index)=>{
+                  const {name} = showtime
+                  return   <button key={index} className="Schedule-button"> {name}</button>
+              })
+          }
         </section>
 
         </>

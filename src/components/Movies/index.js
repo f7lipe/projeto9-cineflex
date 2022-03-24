@@ -37,7 +37,7 @@ useEffect(()=>{
                     {
                         movies.map((movie) =>{
                             const {id, posterURL, overview} = movie
-                            return <Movie key={id} posterURL={posterURL} alt={overview}/>
+                            return <Movie key={id} id={id} posterURL={posterURL} alt={overview}/>
                         })
                     }
 
