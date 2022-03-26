@@ -21,7 +21,7 @@ export default function App() {
                 <Route path="/" element={<Movies/>} />
                 <Route path="/schedules/:id" element={<Schedules/> } />
                 <Route path="/session/:session_id"element={<Session/>} />
-                <Route path="/sucess" element={<Sucess/>} />
+                <Route path="/sucess/:data" element={<Sucess/>} />
             </Routes>
             </BrowserRouter>
 

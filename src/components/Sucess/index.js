@@ -1,6 +1,14 @@
+import {  useParams, useNavigate } from "react-router"
+
 import "./style.css"
 
-export default function Sucess() {
+export default function Sucess(props) {
+
+    const {data } = useParams()
+    const {name, cpf, movie, date, time, seats }= JSON.parse(data)
+
+    const navigate = useNavigate()
+
     return (
 
         <main>
@@ -14,10 +22,10 @@ export default function Sucess() {
                 </h1>
                 <div>
                     <h2>
-                        Enola Gay
+                        {movie}
                     </h2>
                     <h3>
-                        22/06/2022 - 15:00
+                        {date} - {time}
                     </h3>
                 </div>
             </section>
@@ -27,14 +35,9 @@ export default function Sucess() {
                     Ingressos
                 </h1>
                 <div>
-                    <h2>
-                        Assento 16
-                    </h2>
-
-                    <h2>
-                        Assento 17
-                    </h2>
-
+                    {
+                        seats.map(seat=> <h2 key={seat}> {`Assento ${seat}`}</h2>)
+                    }
                 </div>
             </section>
 
@@ -45,17 +48,17 @@ export default function Sucess() {
                 </h1>
                 <div>
                     <h2>
-                        Nome: João Alguma Coisa
+                        Nome: {name}
                     </h2>
 
                     <h3>
-                        CPF: 000.000.000-00
+                        CPF: {cpf}
                     </h3>
 
                 </div>
             </section>
 
-            <button>Voltar pra Home</button>
+            <button onClick={navigate("/")}>Voltar pra Home</button>
 
         </main>
     )

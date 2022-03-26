@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -6,36 +7,22 @@ import "./style.css"
 
 import Seat from "../Seat"
 
+
 export default function Session() {
     const { session_id } = useParams()
 
     const [session, setSession] = useState({ seats: [], name: "", day: "", movie: "" })
     //const [selectedIDs, setselectedIDs] = useState([])
-    const selectedIDs = new Set([])
+    const selectedSeatsIDs = new Set([])
     const [userName, setUsernName] = useState("")
     const [cpf, setCPF] = useState("")
     function manageSelection(id) {
         //setselectedIDs([...selectedIDs, id])
-        selectedIDs.has(id) ? selectedIDs.delete(id) : selectedIDs.add(id)
+        selectedSeatsIDs.has(id) ? selectedSeatsIDs.delete(id) : selectedSeatsIDs.add(id)
     }
 
-    function submit(event){
-        const POST_API = 'https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many'
-        const post = {
-            ids: [...selectedIDs], 
-            name: userName, 
-            cpf: cpf}
-        event.preventDefault()
-        if([...selectedIDs].length === 0){
-            alert("Você precisa selecionar ao menos um assento")
-        } else{
-            const promise = axios.post(POST_API, post)
-            promise.then(response =>{
-                alert("Reserva feita com sucesso")
-            })
-        }
+    const navigate = useNavigate()
 
-    }
 
     useEffect(() => {
         const SESSIONS_API = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${session_id}/seats`
@@ -48,6 +35,27 @@ export default function Session() {
     }, [])
 
     const { name, day, movie, seats } = session
+
+    function submit(event){
+        const POST_API = 'https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many'
+        const post = {
+            ids: [...selectedSeatsIDs], 
+            name: userName, 
+            cpf: cpf}
+        event.preventDefault()
+        if(selectedSeatsIDs.size === 0){
+            alert("Você precisa selecionar ao menos um assento")
+        } else {
+            const promise = axios.post(POST_API, post)
+            promise.then(() =>{
+                alert("Reserva feita com sucesso")
+                const data = {name: userName, cpf: cpf, movie: movie.title, seats: [...selectedSeatsIDs], date: day.weekday, time:name}
+                navigate(`/sucess/${JSON.stringify(data)}`)  
+            })
+        }
+
+    }
+
     return (
         <>
             <main>
@@ -95,7 +103,7 @@ export default function Session() {
                         <input type="number" name="cpf" placeholder="Digite seu CPF..." value={cpf} onChange={event => setCPF(event.target.value)} required />
                     </label>
                     <div>
-                        <input className="" type="submit" value="Reservar assentos" />
+                        <input className="Seat-button" type="submit" value="Reservar assentos" />
                     </div>
                 </form>
             </main>

@@ -75,3 +75,13 @@ input{
     cursor: none;
     user-select: none;
 }
+
+.Seat-button{
+    width: 80vw;
+    height: 45px;
+    margin-top: 40px;
+    border: none;
+    background: #E8833A;
+    color: white;
+    border-radius: 5px;
+}
