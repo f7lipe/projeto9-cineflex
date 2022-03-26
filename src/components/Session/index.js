@@ -1,16 +1,41 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import "./style.css"
 
-import Seats from "../Seats"
+import Seat from "../Seat"
 
 export default function Session() {
-    const {session_id} = useParams()
+    const { session_id } = useParams()
 
-    const [session, setSession] = useState({seats:[], name:"", day:"", movie:""})
+    const [session, setSession] = useState({ seats: [], name: "", day: "", movie: "" })
+    //const [selectedIDs, setselectedIDs] = useState([])
+    const selectedIDs = new Set([])
+    const [userName, setUsernName] = useState("")
+    const [cpf, setCPF] = useState("")
+    function manageSelection(id) {
+        //setselectedIDs([...selectedIDs, id])
+        selectedIDs.has(id) ? selectedIDs.delete(id) : selectedIDs.add(id)
+    }
 
+    function submit(event){
+        const POST_API = 'https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many'
+        const post = {
+            ids: [...selectedIDs], 
+            name: userName, 
+            cpf: cpf}
+        event.preventDefault()
+        if([...selectedIDs].length === 0){
+            alert("Você precisa selecionar ao menos um assento")
+        } else{
+            const promise = axios.post(POST_API, post)
+            promise.then(response =>{
+                alert("Reserva feita com sucesso")
+            })
+        }
+
+    }
 
     useEffect(() => {
         const SESSIONS_API = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${session_id}/seats`
@@ -22,7 +47,7 @@ export default function Session() {
 
     }, [])
 
-    const { name, day, movie, seats  } = session
+    const { name, day, movie, seats } = session
     return (
         <>
             <main>
@@ -30,26 +55,54 @@ export default function Session() {
                     Selecione o(s) assento(s)
                 </h1>
 
-                <Seats seats={seats}/>
+                <section className="Seats">
+                    {
+                        seats.map(seat => {
+                            const { name, id, isAvailable } = seat
+                            return (
+                                <div key={id} onClick={() => manageSelection(id)}>
+                                    <Seat key={id} name={name} status={isAvailable} />
+                                </div>
+                            )
+                        })
+                    }
+                </section>
 
-                <form>
+                <section className="Seat-descriptions">
+                    <div className="Seat-description">
+                        <div className="Seat selected" />
+                        <p>Selecionado</p>
+                    </div>
+
+                    <div className="Seat-description">
+                        <div className="Seat" />
+                        <p>Disponível</p>
+                    </div>
+
+                    <div className="Seat-description">
+                        <div className="Seat unavailable" />
+                        <p>Indisponível</p>
+                    </div>
+                </section>
+
+                <form onSubmit={submit}>
                     <label>
-                       <p>Nome do comprador:</p>
-                        <input type="text" name="name" placeholder="Digite seu nome..." />
+                        <p>Nome do comprador:</p>
+                        <input type="text" name="name" placeholder="Digite seu nome..." value={userName} onChange={event => setUsernName(event.target.value)} required />
                     </label>
                     <label>
                         <p>CPF do comprador:</p>
-                        <input type="number" name="cpf" placeholder="Digite seu CPF..."/>
+                        <input type="number" name="cpf" placeholder="Digite seu CPF..." value={cpf} onChange={event => setCPF(event.target.value)} required />
                     </label>
                     <div>
-                    <input className="" type="submit" value="Reservar assentos" />
+                        <input className="" type="submit" value="Reservar assentos" />
                     </div>
                 </form>
             </main>
 
             <footer>
                 <div className="Schedule-movie-info">
-                    <img className="Schedule-movie-thumbnail" src={movie.posterURL} alt={movie.overview}/>
+                    <img className="Schedule-movie-thumbnail" src={movie.posterURL} alt={movie.overview} />
                     <div>
                         <h3 className="Schedule-movie-h3">{movie.title}</h3>
                         <h4>{day.weekday} - {name}</h4>

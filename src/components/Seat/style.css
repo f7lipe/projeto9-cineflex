@@ -20,32 +20,15 @@
     cursor: pointer;
 }
 
-.Seat-descriptions{
-    margin-top: 20px;
-    margin-bottom: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border-radius: 3px;
-}
-
-.Seat-description{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.Seat-description p{
-    margin-top: 15px;
-}
 
 .selected{
-    background: #58b4ff;
+    background: #1594fc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }
 
 .unavailable{
     background: #ff4646;
     cursor: none;
-    user-select: none;
 }
