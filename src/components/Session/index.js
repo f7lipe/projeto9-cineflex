@@ -12,19 +12,22 @@ export default function Session() {
     const { session_id } = useParams()
 
     const [session, setSession] = useState({ seats: [], name: "", day: "", movie: "" })
-    //const [selectedIDs, setselectedIDs] = useState([])
+    const [selectedIDs, setselectedIDs] = useState(new Set())
 
-    const selectedSeatsIDs = new Set()
+    //const selectedSeatsIDs = new Set()
     const [userName, setUsernName] = useState("")
     const [cpf, setCPF] = useState("")
 
+    const selectedSeatsIDs = new Set(selectedIDs)
     function manageClick(id, isAvailable) {
-        //setselectedIDs([...selectedIDs, id])
+        setselectedIDs([...selectedIDs, id])
         if (isAvailable){
+            //selectedSeatsIDs.has(id) ? selectedSeatsIDs.delete(id) : selectedSeatsIDs.add(id)
             selectedSeatsIDs.has(id) ? selectedSeatsIDs.delete(id) : selectedSeatsIDs.add(id)
         }
+        setselectedIDs(selectedSeatsIDs)
 
-        console.log([...selectedSeatsIDs], selectedSeatsIDs)
+        console.log(selectedSeatsIDs)
 
     }
 
@@ -51,9 +54,9 @@ export default function Session() {
             cpf: cpf
         }
         
+      
 
         if (selectedSeatsIDs.size !== 0) {
-            console.log('durante', [...selectedSeatsIDs])
             const promise = axios.post(POST_API, post)
             promise.then(() => {
                 alert("Reserva feita com sucesso")
