@@ -13,12 +13,19 @@ export default function Session() {
 
     const [session, setSession] = useState({ seats: [], name: "", day: "", movie: "" })
     //const [selectedIDs, setselectedIDs] = useState([])
-    const selectedSeatsIDs = new Set([])
+
+    const selectedSeatsIDs = new Set()
     const [userName, setUsernName] = useState("")
     const [cpf, setCPF] = useState("")
-    function manageSelection(id) {
+
+    function manageClick(id, isAvailable) {
         //setselectedIDs([...selectedIDs, id])
-        selectedSeatsIDs.has(id) ? selectedSeatsIDs.delete(id) : selectedSeatsIDs.add(id)
+        if (isAvailable){
+            selectedSeatsIDs.has(id) ? selectedSeatsIDs.delete(id) : selectedSeatsIDs.add(id)
+        }
+
+        console.log([...selectedSeatsIDs], selectedSeatsIDs)
+
     }
 
     const navigate = useNavigate()
@@ -36,24 +43,30 @@ export default function Session() {
 
     const { name, day, movie, seats } = session
 
-    function submit(event){
+    function submit(event) {
         const POST_API = 'https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many'
         const post = {
-            ids: [...selectedSeatsIDs], 
-            name: userName, 
-            cpf: cpf}
-        event.preventDefault()
-        if(selectedSeatsIDs.size === 0){
-            alert("Você precisa selecionar ao menos um assento")
-        } else {
-            const promise = axios.post(POST_API, post)
-            promise.then(() =>{
-                alert("Reserva feita com sucesso")
-                const data = {name: userName, cpf: cpf, movie: movie.title, seats: [...selectedSeatsIDs], date: day.weekday, time:name}
-                navigate(`/sucess/${JSON.stringify(data)}`)  
-            })
+            ids: [...selectedSeatsIDs],
+            name: userName,
+            cpf: cpf
         }
+        
 
+        if (selectedSeatsIDs.size !== 0) {
+            console.log('durante', [...selectedSeatsIDs])
+            const promise = axios.post(POST_API, post)
+            promise.then(() => {
+                alert("Reserva feita com sucesso")
+                const data = { name: userName, cpf: cpf, movie: movie.title, seats: [...selectedSeatsIDs], date: day.weekday, time: name }
+                const stringifiedData = JSON.stringify(data)
+                const encodedData = encodeURI(stringifiedData)
+                navigate(`/sucess/${encodedData}`)
+            })
+        } else {
+            alert("Você precisa selecionar ao menos um assento")
+        }
+        event.preventDefault()
+ 
     }
 
     return (
@@ -68,7 +81,7 @@ export default function Session() {
                         seats.map(seat => {
                             const { name, id, isAvailable } = seat
                             return (
-                                <div key={id} onClick={() => manageSelection(id)}>
+                                <div key={id} onClick={() => manageClick(id,isAvailable)}>
                                     <Seat key={id} name={name} status={isAvailable} />
                                 </div>
                             )

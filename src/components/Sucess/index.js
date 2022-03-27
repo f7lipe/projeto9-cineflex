@@ -1,13 +1,18 @@
-import {  useParams, useNavigate } from "react-router"
+import {  useParams } from "react-router"
 
 import "./style.css"
 
-export default function Sucess(props) {
+export default function Sucess() {
 
     const {data } = useParams()
-    const {name, cpf, movie, date, time, seats }= JSON.parse(data)
+    let decoded 
+    try {
+       decoded = decodeURI(data)
+    } catch (error){
+        alert('Falha ao decodificar link')
+    }
+    const {name, cpf, movie, date, time, seats }= JSON.parse(decoded)
 
-    const navigate = useNavigate()
 
     return (
 
@@ -36,7 +41,7 @@ export default function Sucess(props) {
                 </h1>
                 <div>
                     {
-                        seats.map(seat=> <h2 key={seat}> {`Assento ${seat}`}</h2>)
+                        seats.map(seat=> <h2> {`Assento ${seat}`}</h2>)
                     }
                 </div>
             </section>
@@ -58,7 +63,7 @@ export default function Sucess(props) {
                 </div>
             </section>
 
-            <button onClick={navigate("/")}>Voltar pra Home</button>
+            <button>Voltar pra Home</button>
 
         </main>
     )
