@@ -14,21 +14,17 @@ export default function Session() {
     const [session, setSession] = useState({ seats: [], name: "", day: "", movie: "" })
     const [selectedIDs, setselectedIDs] = useState(new Set())
 
-    //const selectedSeatsIDs = new Set()
     const [userName, setUsernName] = useState("")
     const [cpf, setCPF] = useState("")
 
     const selectedSeatsIDs = new Set(selectedIDs)
-    function manageClick(id, isAvailable) {
-        setselectedIDs([...selectedIDs, id])
+
+    function manageClick(name, isAvailable) {
+       
         if (isAvailable){
-            //selectedSeatsIDs.has(id) ? selectedSeatsIDs.delete(id) : selectedSeatsIDs.add(id)
-            selectedSeatsIDs.has(id) ? selectedSeatsIDs.delete(id) : selectedSeatsIDs.add(id)
+            selectedSeatsIDs.has(name) ? selectedSeatsIDs.delete(name) : selectedSeatsIDs.add(name)
+            setselectedIDs(selectedSeatsIDs)
         }
-        setselectedIDs(selectedSeatsIDs)
-
-        console.log(selectedSeatsIDs)
-
     }
 
     const navigate = useNavigate()
@@ -62,8 +58,7 @@ export default function Session() {
                 alert("Reserva feita com sucesso")
                 const data = { name: userName, cpf: cpf, movie: movie.title, seats: [...selectedSeatsIDs], date: day.weekday, time: name }
                 const stringifiedData = JSON.stringify(data)
-                const encodedData = encodeURI(stringifiedData)
-                navigate(`/sucess/${encodedData}`)
+                navigate(`/sucess/${stringifiedData}`)
             })
         } else {
             alert("Você precisa selecionar ao menos um assento")
@@ -84,7 +79,7 @@ export default function Session() {
                         seats.map(seat => {
                             const { name, id, isAvailable } = seat
                             return (
-                                <div key={id} onClick={() => manageClick(id,isAvailable)}>
+                                <div key={id} onClick={() => manageClick(name,isAvailable)}>
                                     <Seat key={id} name={name} status={isAvailable} />
                                 </div>
                             )
@@ -137,3 +132,5 @@ export default function Session() {
         </>
     )
 }
+
+

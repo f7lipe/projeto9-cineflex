@@ -5,6 +5,8 @@ import axios from "axios";
 import "./style.css"
 
 import Schedule from "../Schedule"
+import UUID from "../..";
+
 
 export default function Schedules() {
     const { id } = useParams()
@@ -33,10 +35,10 @@ export default function Schedules() {
                 <section className="Schedules">
                 {
                    
-                        days.map((day, index) => {
+                        days.map((day) => {
                             const {weekday, date, showtimes} = day
                             
-                            return <Schedule key={id+index} weekday={weekday} date={date} showtimes={showtimes}/>
+                            return <Schedule key={UUID()} weekday={weekday} date={date} showtimes={showtimes}/>
                         })
                     }
                 </section>

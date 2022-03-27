@@ -1,7 +1,6 @@
 .Movie{
     width: 129px;
     height: 193px;
-    background: brown;
     display: flex;
     justify-content: center;
     align-items: center;
